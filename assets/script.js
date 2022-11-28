@@ -1,3 +1,5 @@
+
+// only way I could figure out how to make multiple blocks appear, and control them.....................
 var textArea = document.querySelectorAll("textarea");
 var saveBtn = document.querySelectorAll("button");
 var timeBlock9 = document.querySelector("#hour-9");
@@ -11,7 +13,7 @@ var timeBlock16 = document.querySelector("#hour-16");
 var timeBlock17 = document.querySelector("#hour-17");
 console.log(saveBtn);
 
-for (var i = 0; i < saveBtn.length; i++) {
+for (var i = 0; i < saveBtn.length; i++) {  // loops over array to save to local storage...................
   saveBtn[i].addEventListener("click", function (event) {
     console.log(event.target.parentElement.getAttribute("id"));
     var userInput = event.target.previousElementSibling.value;
@@ -20,13 +22,13 @@ for (var i = 0; i < saveBtn.length; i++) {
   });
 }
 
-// TODO: Add code to display the current date in the header of the page.
+
 //date on page!!.........................................................
 var today = dayjs();
-$("#currentDay").text(today.format("dddd MMM D, YYYY h:mm A"));
+$("#currentDay").text(today.format("dddd MMM D, YYYY"));
 
 
-
+//These save the value contained in the time slots to local storage.........
 var hour9Data = localStorage.getItem("hour-9");
 var hour9TB = timeBlock9.children[1];
 hour9TB.value = hour9Data;
@@ -39,7 +41,7 @@ var hour11Data = localStorage.getItem("hour-11");
 var hour11TB = timeBlock11.children[1];
 hour11TB.value = hour11Data;
 
-var hour12Data = localStorage.getItem("hour-12");
+var hour12Data = localStorage.getItem("hour-12");  
 var hour12TB = timeBlock12.children[1];
 hour12TB.value = hour12Data;
 
@@ -64,24 +66,18 @@ var hour17TB = timeBlock17.children[1];
 hour17TB.value = hour17Data;
 
 
-
+//trying to change colors of text boxes.................................
 $(function () {
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes?
-
-  //How can Day.js be used to get the
-  // current hour in 24-hour time?
 
   function timeCompare() {
     var currentTime = dayjs().hour();
     for (var i = 0; i < textArea.length; i++) {
       if (i + 8 < currentTime) textArea[i].classList.add("past");
-      if (i + 8 < currentTime) textArea[i].classList.add("present");
-      if (i + 8 < currentTime) textArea[i].classList.add("future"); //trying to change colors of text boxes........................
+      if (i + 8 == currentTime) textArea[i].classList.add("present");
+      if (i + 8 > currentTime) textArea[i].classList.add("future"); 
     }
   }
+
   
   timeCompare();
 });
